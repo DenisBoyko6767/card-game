@@ -96,9 +96,213 @@ h1, h2, h3, h4, h5, h6 {
      object-fit: cover;
 }
 
+.card {
+  height: 100vh;
+}
+.card__bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  filter: blur(4px);
+}
+.card__bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.541);
+}
+.card__wrapper {
+  position: relative;
+  height: 92vh;
+  padding: 10px 0px 10px 0px;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(200px, 400px));
+  grid-template-rows: repeat(3, 1fr);
+  gap: 50px;
+}
+@media (max-width: 1200px) {
+  .card__wrapper {
+    grid-template-columns: repeat(3, minmax(200px, 400px));
+    grid-template-rows: repeat(4, 1fr);
+  }
+}
+@media (max-width: 721px) {
+  .card__wrapper {
+    gap: 25px;
+  }
+}
+@media (max-width: 686px) {
+  .card__wrapper {
+    grid-template-columns: repeat(3, minmax(100px, 400px));
+  }
+}
+@media (max-width: 480px) {
+  .card__wrapper {
+    height: 85vh;
+  }
+}
+@media (max-width: 380px) {
+  .card__wrapper {
+    grid-template-columns: repeat(3, minmax(80px, 400px));
+  }
+}
+.card__item {
+  padding: 40px;
+  border-radius: 20px 0px 20px 0px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: rgba(61, 100, 129, 0.829);
+  transition: all 0.5s ease 0s;
+}
+@media (max-width: 480px) {
+  .card__item {
+    padding: 20px;
+  }
+}
+.card__item._active {
+  transform: rotate3d(0, 1, 0, 180deg);
+}
+.card__item._active .card__image {
+  z-index: 6;
+}
+.card__item._active .card__image-question {
+  opacity: 0.3;
+}
+.card__image {
+  width: 73px;
+  position: absolute;
+  z-index: 4;
+}
+@media (max-width: 1200px) {
+  .card__image {
+    width: 53px;
+  }
+}
+@media (max-width: 480px) {
+  .card__image {
+    width: 40px;
+  }
+}
+.card__image-question {
+  position: absolute;
+  z-index: 5;
+  width: 85px;
+}
+@media (max-width: 1200px) {
+  .card__image-question {
+    width: 60px;
+  }
+}
+@media (max-width: 480px) {
+  .card__image-question {
+    width: 50px;
+  }
+}
+.card__controls {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  -moz-column-gap: 15px;
+       column-gap: 15px;
+}
+.card__tries-counter {
+  z-index: 100;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+@media (min-width: 1600px) {
+  .card__tries-counter {
+    position: relative;
+    right: 0px;
+    bottom: 0;
+  }
+}
+@media (max-width: 1600px) {
+  .card__tries-counter {
+    position: fixed;
+    width: 50%;
+    right: 0px;
+    bottom: 27px;
+  }
+}
+@media (max-width: 768px) {
+  .card__tries-counter {
+    position: relative;
+    width: 30%;
+    right: 0px;
+    bottom: 0px;
+  }
+}
+@media (max-width: 480px) {
+  .card__tries-counter {
+    bottom: -11px;
+  }
+}
+.card__button {
+  font-weight: 600;
+  position: fixed;
+  z-index: 15;
+  border-radius: 0px 20px 0px 20px;
+  bottom: 20px;
+  right: 10px;
+  margin-bottom: -10px;
+  color: #fff;
+  background-color: rgb(60, 146, 93);
+  transition: background-color 0.3s ease 0s;
+  padding: 15px 40px;
+}
+@media (max-width: 767.98px) {
+  .card__button {
+    font-size: calc(20px + 3.4 * ((100vw - 320px) / 1580));
+  }
+}
+@media (min-width: 767.98px) {
+  .card__button {
+    font-size: calc(20px + 2 * (100vw / 1580));
+  }
+}
+.card__button:hover {
+  background-color: rgb(46, 112, 71);
+}
+@media (min-width: 1600px) {
+  .card__button {
+    position: relative;
+    width: 30%;
+    margin-bottom: 0px;
+    float: right;
+    right: 0px;
+    bottom: 0;
+  }
+}
+@media (max-width: 768px) {
+  .card__button {
+    position: relative;
+    width: 70%;
+    right: 0px;
+    bottom: 0;
+  }
+}
+@media (max-width: 480px) {
+  .card__button {
+    margin-top: 15px;
+    padding: 25px 25px;
+  }
+}
+
 body {
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  background-color: rgb(73, 73, 73);
+  background-color: rgb(0, 58, 63);
   color: rgb(228, 228, 228);
 }
 @media (max-width: 767.98px) {
@@ -118,7 +322,7 @@ body._lock {
 ._container {
   max-width: 1580px;
   margin: 0 auto;
-  padding: 0px 15px;
+  padding: 0px 10px;
 }
 
 .wrapper {
@@ -127,7 +331,6 @@ body._lock {
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow: hidden;
 }
 .wrapper h1 {
   position: relative;

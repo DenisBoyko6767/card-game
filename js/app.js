@@ -1,3 +1,4 @@
 
-import {} from "./functions.js";
+import {cardAction} from "./functions.js";
 
+cardAction();

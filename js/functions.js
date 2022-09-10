@@ -1,6 +1,23 @@
 
+//card action
+export function cardAction() {
 
+	const cards = document.querySelectorAll('.card__item');
 
+	cards.forEach(card => {
+		card.addEventListener('click',addActiveToCard);
+	});
+
+	function addActiveToCard(params) {
+		this.classList.add("_active");
+		removeActiveToCard(this);
+	}
+	function removeActiveToCard(el) {
+		setTimeout(() => {
+			el.classList.remove("_active");
+		}, 1700);
+	}
+}
 
 
 
