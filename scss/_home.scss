@@ -68,8 +68,12 @@
 		justify-content: center;
 		cursor: pointer;
 		background-color: rgba(61, 100, 129, 0.829);
-		transition: all .5s ease 0s;
+		transition: all .4s ease 0s;
 
+		&:hover{
+			background-color: rgba(60, 97, 128, 0.829);
+			transform: scale(1.03);
+		}
 		&._active{
 			transform: rotate3d(0,1,0,180deg);
 		  .card__image{
@@ -116,7 +120,7 @@
 		column-gap: 15px;
 	}
 	&__tries-counter{
-		z-index: 100;
+		z-index: 5;
 		text-transform: uppercase;
 		font-weight: 600;
 		@media (min-width:1600px){
@@ -143,6 +147,7 @@
 	}
 	&__button {
 		font-weight: 600;
+		z-index: 15;
 		position: fixed;
 		z-index: 15;
 		border-radius: 0px 20px 0px 20px;
@@ -180,6 +185,8 @@
 			margin-top: 15px;
 			padding: 25px 25px;
 		}
-
+		@media (max-height: 420px) {
+			opacity: 0.4;
+		}
 	}
 }
