@@ -1,0 +1,49 @@
+
+@import "_null";
+@import "_common";
+@import "_mixin";
+@import "_home";
+//@import "_popup";
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
+
+
+
+//<Шрифт по умолчанию>==========================================================================================
+$fontFamily: Arial,
+"Helvetica Neue",
+Helvetica,
+sans-serif;
+
+$fontSize: 22px;
+//</Шрифт по умолчанию>==========================================================================================
+
+
+body {
+	@include adaptiveFont(18,20);
+	font-family: $fontFamily;
+	background-color: rgb(73, 73, 73);
+	color: rgb(228, 228, 228);
+	&._lock {
+		overflow: hidden;
+	}
+}
+
+._container {
+	max-width: #{$maxWidth + px};
+	margin: 0 auto;
+	padding: 0px 15px;
+}
+
+
+.wrapper {
+	min-height: 100%;
+	width: 100%;	
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	overflow: hidden;
+	h1{
+		position: relative;
+		z-index: 2;
+	}
+}
