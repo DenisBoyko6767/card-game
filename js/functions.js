@@ -48,13 +48,37 @@ export function cardAction() {
 	}
 	//========================================================================================================================================================
 	// ---init active item
+	const cards = document.querySelectorAll('.card__item'); // global variable
+	const cardsParent = document.querySelector('.card__wrapper'); // global variable
+	let touchCounter = 0; // global variable
+	let complatedCounter = 0; // global variable
+	let loseCounter = 0; // global variable
+	let arrayCounter = 0; // global variable
+	let ItemsArray = [];
 
+	// подія на клік
+	cardsParent.addEventListener('click', initCurrentCard)
 
+	// головна функція ініциалізації
+	function initCurrentCard(e) {
+		let currentItem = e.target.closest('.card__item');
 
-	//========================================================================================================================================================
-	// ---lock dbl click for item
-
-
+		// створення массиву з двох нажатих елементів
+		ItemsArray.splice(arrayCounter,0,currentItem)
+		// ліміт дотиків
+		if (touchCounter < 2) {
+			touchCounter++;
+			// перевірка на однаковість
+			if (currentItem == ItemsArray[1]) {
+				touchCounter--;
+				console.log('same');
+			} else {
+				console.log('not same');
+				currentItem.classList.add('_active');
+			}
+		}
+		//console.log(e.target.closest('.card__item'));
+	}
 
 	//========================================================================================================================================================
 	//---generate random position for iamges-item when click reset button
@@ -105,25 +129,6 @@ export function cardAction() {
 			displayAlertForRestButton();
 		}
 
-	}
-
-	//========================================================================================================================================================
-	//---add card actvie classes	
-	const cards = document.querySelectorAll('.card__item');
-
-	cards.forEach(card => {
-		card.addEventListener('click', addActiveToCard);
-	});
-
-	function addActiveToCard(params) {
-		this.classList.add("_active");
-		removeActiveToCard(this);
-	}
-
-	function removeActiveToCard(el) {
-		setTimeout(() => {
-			el.classList.remove("_active");
-		}, 1700);
 	}
 }
 //========================================================================================================================================================
