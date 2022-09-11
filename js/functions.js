@@ -7,9 +7,45 @@ export function cardAction() {
 
 	//========================================================================================================================================================
 	// ---display alert
+	const alerts = document.querySelectorAll('.alert');
+	const buttonsAlert = document.querySelectorAll('.alert__body span');
 
+	//провіряємо алєрти на класс ектів, якщо є, то локаєм скролл
+	function alertLockScroll() {
+		alerts.forEach(alert => {
+			if (alert.classList.contains("_active")) {
+				document.body.classList.add('_lock');
+			}
+		});
+	}
 
+	function alertRemoveLockScroll() {
+		alerts.forEach(alert => {
+			if (!alert.classList.contains("_active")) {
+				document.body.classList.remove('_lock');
+			}
+		});
+	}
+	alertLockScroll();
+	//Вішаємо подію на кожну кнопку
+	buttonsAlert.forEach(button => {
+		button.addEventListener('click', buttonAlertAction)
+	});
 
+	function buttonAlertAction() {
+		alertRemoveLockScroll();
+		generateNewPosition();
+		this.parentElement.parentElement.classList.remove("_active");
+	}
+
+	function displayAlertForRestButton() {
+		const alertAnim = document.querySelector('.alert-anim');
+
+		alertAnim.classList.add('_active');
+		setTimeout(() => {
+			alertAnim.classList.remove('_active');
+		}, 1000);
+	}
 	//========================================================================================================================================================
 	// ---init active item
 
@@ -33,12 +69,12 @@ export function cardAction() {
 		// варіейбл 
 		let cardImage = Array.from(document.querySelectorAll('.card__image'));
 		let cardImageParent = Array.from(document.querySelectorAll('.card__item'));
-		let newCardImageArray = []; //Object.assign([], cardImage);
+		let newCardImageArray = []; // ссилочний тип масива
 
 		// преревірка на четність + створення 2 масивів
 		if (cardImage.length % 2 == 0) {
-			let newHalfArrayOne = [] //Object.assign([], cardImage).slice(0, cardImage.length / 2).fill(0, this);
-			let newHalfArrayTwo = [] //Object.assign([], cardImage).slice(0, cardImage.length / 2).fill(0, this);
+			let newHalfArrayOne = [] // ссилочний тип масива
+			let newHalfArrayTwo = [] // ссилочний тип масива
 			let counterForFirstArr = 0;
 			let counterForSecondArr = 0;
 
@@ -59,26 +95,15 @@ export function cardAction() {
 			// обйеднання 2 створених масивів в один
 			newCardImageArray.splice(0, 0, ...newHalfArrayOne, ...newHalfArrayTwo);
 
-			//display & delete ===================================================================================================================
-
-			//  ??????? видаляємо всі амдж елементи
-			//  ??????? cardImageParent.forEach(cardCurrentParent => {
-			//  ??????? 	if (cardCurrentParent.children[1].classList.contains('.card__image')) {
-			//  ??????? 		console.log('sadf');
-			//  ??????? 	}
-			//  ??????? 	//	console.log(cardCurrentParent.children[1]);
-			//  ??????? });
-
 			//вставляємо створені, рандомно згенеровані елементи в родича (newCardImageArray)
-			cardImageParent.forEach((cardCurrentParent,index) => {
+			cardImageParent.forEach((cardCurrentParent, index) => {
 				cardCurrentParent.prepend(newCardImageArray[index]);
 			});
 		}
 
-
-
-
-
+		if (this == buttonReset) {
+			displayAlertForRestButton();
+		}
 
 	}
 
