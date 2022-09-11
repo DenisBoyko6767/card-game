@@ -18,7 +18,7 @@
 			width: 100vw;
 			height: 100vh;
 			z-index: 2;
-			background-color: rgba(0, 0, 0, 0.541);
+			background-color: rgba(0, 0, 0, 0.651);
 		}
 	}
 
@@ -80,7 +80,7 @@
 			  z-index: 6;
 		  }
 		  .card__image-question{
-			  opacity: 0.3;
+			  opacity: 0;
 			}
 		}
 	}
@@ -89,6 +89,7 @@
 		width: 73px;
 		position: absolute;
 		z-index: 4;
+		transition: all .2s ease 0s;
 		
 		@media (max-width: 1200px) {
 			width: 53px;
@@ -103,6 +104,7 @@
 		position: absolute;
 		z-index: 5;
 		width: 85px;
+		transition: all .2s ease 0s;
 		
 		@media (max-width: 1200px) {
 			width: 60px;
@@ -143,6 +145,7 @@
 		}
 		@media (max-width: 480px){
 			bottom: -11px;
+			
 		}
 	}
 	&__button {

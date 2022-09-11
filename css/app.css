@@ -116,7 +116,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 100vw;
   height: 100vh;
   z-index: 2;
-  background-color: rgba(0, 0, 0, 0.541);
+  background-color: rgba(0, 0, 0, 0.651);
 }
 .card__wrapper {
   position: relative;
@@ -181,12 +181,13 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 6;
 }
 .card__item._active .card__image-question {
-  opacity: 0.3;
+  opacity: 0;
 }
 .card__image {
   width: 73px;
   position: absolute;
   z-index: 4;
+  transition: all 0.2s ease 0s;
 }
 @media (max-width: 1200px) {
   .card__image {
@@ -202,6 +203,7 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   z-index: 5;
   width: 85px;
+  transition: all 0.2s ease 0s;
 }
 @media (max-width: 1200px) {
   .card__image-question {
