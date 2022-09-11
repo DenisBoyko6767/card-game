@@ -1,43 +1,100 @@
-
 //card action
 export function cardAction() {
-//========================================================================================================================================================
-// ---init result game
+	//========================================================================================================================================================
+	// ---init result game
 
 
 
-//========================================================================================================================================================
-// ---display alert
+	//========================================================================================================================================================
+	// ---display alert
 
 
 
-//========================================================================================================================================================
-// ---init active item
+	//========================================================================================================================================================
+	// ---init active item
 
 
 
-//========================================================================================================================================================
-// ---lock dbl click for item
+	//========================================================================================================================================================
+	// ---lock dbl click for item
 
 
 
-//========================================================================================================================================================
-//---generate random position for iamges-item when click reset button
+	//========================================================================================================================================================
+	//---generate random position for iamges-item when click reset button
+	//
+	const buttonReset = document.querySelector('.card__button');
+
+	// подія на клік
+	buttonReset.addEventListener('click', generateNewPosition);
+
+	// головна функфія генерації
+	function generateNewPosition(e) {
+		// варіейбл 
+		let cardImage = Array.from(document.querySelectorAll('.card__image'));
+		let cardImageParent = Array.from(document.querySelectorAll('.card__item'));
+		let newCardImageArray = []; //Object.assign([], cardImage);
+
+		// преревірка на четність + створення 2 масивів
+		if (cardImage.length % 2 == 0) {
+			let newHalfArrayOne = [] //Object.assign([], cardImage).slice(0, cardImage.length / 2).fill(0, this);
+			let newHalfArrayTwo = [] //Object.assign([], cardImage).slice(0, cardImage.length / 2).fill(0, this);
+			let counterForFirstArr = 0;
+			let counterForSecondArr = 0;
+
+			// ініціалізація 2 массивів по дата-айді
+			cardImage.forEach(currentCardImg => {
+				if (currentCardImg.getAttribute('data-id-animal') == '1') {
+					newHalfArrayOne.splice(counterForFirstArr, 0, currentCardImg);
+					counterForFirstArr++;
+				} else if (currentCardImg.getAttribute('data-id-animal') == '2') {
+					newHalfArrayTwo.splice(counterForSecondArr, 0, currentCardImg);
+					counterForSecondArr++;
+				}
+			});
+			//перемішення 2 створених масивів
+			shuffle(newHalfArrayOne);
+			shuffle(newHalfArrayTwo);
+
+			// обйеднання 2 створених масивів в один
+			newCardImageArray.splice(0, 0, ...newHalfArrayOne, ...newHalfArrayTwo);
+
+			//display & delete ===================================================================================================================
+
+			//  ??????? видаляємо всі амдж елементи
+			//  ??????? cardImageParent.forEach(cardCurrentParent => {
+			//  ??????? 	if (cardCurrentParent.children[1].classList.contains('.card__image')) {
+			//  ??????? 		console.log('sadf');
+			//  ??????? 	}
+			//  ??????? 	//	console.log(cardCurrentParent.children[1]);
+			//  ??????? });
+
+			//вставляємо створені, рандомно згенеровані елементи в родича (newCardImageArray)
+			cardImageParent.forEach((cardCurrentParent,index) => {
+				cardCurrentParent.prepend(newCardImageArray[index]);
+			});
+		}
 
 
 
-//========================================================================================================================================================
-//---add card actvie classes	
+
+
+
+	}
+
+	//========================================================================================================================================================
+	//---add card actvie classes	
 	const cards = document.querySelectorAll('.card__item');
 
 	cards.forEach(card => {
-		card.addEventListener('click',addActiveToCard);
+		card.addEventListener('click', addActiveToCard);
 	});
 
 	function addActiveToCard(params) {
 		this.classList.add("_active");
 		removeActiveToCard(this);
 	}
+
 	function removeActiveToCard(el) {
 		setTimeout(() => {
 			el.classList.remove("_active");
@@ -54,6 +111,26 @@ export function cardAction() {
 
 
 
+//========================================================================================================================================================
+// ---help functions
+function shuffle(arr) {
+	var j, temp;
+	for (var i = arr.length - 1; i > 0; i--) {
+		j = Math.floor(Math.random() * (i + 1));
+		temp = arr[j];
+		arr[j] = arr[i];
+		arr[i] = temp;
+	}
+	return arr;
+}
+//========================================================================================================================================================
+
+
+
+
+
+
+
 
 
 
@@ -63,119 +140,123 @@ export function cardAction() {
 //========================================================================================================================================================
 export function popup() {
 	let popup_link = document.querySelectorAll('._popup-link');
-let popups = document.querySelectorAll('.popup');
-let unlock = true;
-for (let index = 0; index < popup_link.length; index++) {
-	const el = popup_link[index];
-	el.addEventListener('click', function (e) {
+	let popups = document.querySelectorAll('.popup');
+	let unlock = true;
+	for (let index = 0; index < popup_link.length; index++) {
+		const el = popup_link[index];
+		el.addEventListener('click', function (e) {
+			if (unlock) {
+				let item = el.getAttribute('href').replace('#', '');
+				let video = el.getAttribute('data-video');
+				popup_open(item, video);
+			}
+			e.preventDefault();
+		})
+	}
+	for (let index = 0; index < popups.length; index++) {
+		const popup = popups[index];
+		popup.addEventListener("mousedown", function (e) {
+			if (!e.target.closest('.popup__body')) {
+				popup_close(e.target.closest('.popup'));
+			}
+		});
+	}
+
+	function popup_open(item, video = '') {
+		let activePopup = document.querySelectorAll('.popup._active');
+		if (activePopup.length > 0) {
+			popup_close('', false);
+		}
+		let curent_popup = document.querySelector('.popup_' + item);
+		if (curent_popup && unlock) {
+			if (video != '' && video != null) {
+				let popup_video = document.querySelector('.popup_video');
+				popup_video.querySelector('.popup__video').innerHTML = '<iframe src="https://www.youtube.com/embed/' + video + '?autoplay=1"  allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+			}
+			if (!document.querySelector('.menu__body._active')) {
+				body_lock_add(500);
+			}
+			curent_popup.classList.add('_active');
+			history.pushState('', '', '#' + item);
+		}
+	}
+
+	function popup_close(item, bodyUnlock = true) {
 		if (unlock) {
-			let item = el.getAttribute('href').replace('#', '');
-			let video = el.getAttribute('data-video');
-			popup_open(item, video);
-		}
-		e.preventDefault();
-	})
-}
-for (let index = 0; index < popups.length; index++) {
-	const popup = popups[index];
-	popup.addEventListener("mousedown", function (e) {
-		if (!e.target.closest('.popup__body')) {
-			popup_close(e.target.closest('.popup'));
-		}
-	});
-}
-function popup_open(item, video = '') {
-	let activePopup = document.querySelectorAll('.popup._active');
-	if (activePopup.length > 0) {
-		popup_close('', false);
-	}
-	let curent_popup = document.querySelector('.popup_' + item);
-	if (curent_popup && unlock) {
-		if (video != '' && video != null) {
-			let popup_video = document.querySelector('.popup_video');
-			popup_video.querySelector('.popup__video').innerHTML = '<iframe src="https://www.youtube.com/embed/' + video + '?autoplay=1"  allow="autoplay; encrypted-media" allowfullscreen></iframe>';
-		}
-		if (!document.querySelector('.menu__body._active')) {
-			body_lock_add(500);
-		}
-		curent_popup.classList.add('_active');
-		history.pushState('', '', '#' + item);
-	}
-}
-function popup_close(item, bodyUnlock = true) {
-	if (unlock) {
-		if (!item) {
-			for (let index = 0; index < popups.length; index++) {
-				const popup = popups[index];
-				let video = popup.querySelector('.popup__video');
+			if (!item) {
+				for (let index = 0; index < popups.length; index++) {
+					const popup = popups[index];
+					let video = popup.querySelector('.popup__video');
+					if (video) {
+						video.innerHTML = '';
+					}
+					popup.classList.remove('_active');
+				}
+			} else {
+				let video = item.querySelector('.popup__video');
 				if (video) {
 					video.innerHTML = '';
 				}
-				popup.classList.remove('_active');
+				item.classList.remove('_active');
 			}
-		} else {
-			let video = item.querySelector('.popup__video');
-			if (video) {
-				video.innerHTML = '';
+			if (!document.querySelector('.menu__body._active') && bodyUnlock) {
+				body_lock_remove(500);
 			}
-			item.classList.remove('_active');
+			history.pushState('', '', window.location.href.split('#')[0]);
 		}
-		if (!document.querySelector('.menu__body._active') && bodyUnlock) {
-			body_lock_remove(500);
-		}
-		history.pushState('', '', window.location.href.split('#')[0]);
 	}
-}
-function body_lock_remove(delay) {
-	let body = document.querySelector("body");
-	if (unlock) {
-		let lock_padding = document.querySelectorAll("._lp");
-		setTimeout(() => {
+
+	function body_lock_remove(delay) {
+		let body = document.querySelector("body");
+		if (unlock) {
+			let lock_padding = document.querySelectorAll("._lp");
+			setTimeout(() => {
+				for (let index = 0; index < lock_padding.length; index++) {
+					const el = lock_padding[index];
+					el.style.paddingRight = '0px';
+				}
+				body.style.paddingRight = '0px';
+				body.classList.remove("_lock");
+			}, delay);
+
+			unlock = false;
+			setTimeout(function () {
+				unlock = true;
+			}, delay);
+		}
+	}
+
+	function body_lock_add(delay) {
+		let body = document.querySelector("body");
+		if (unlock) {
+			let lock_padding = document.querySelectorAll("._lp");
 			for (let index = 0; index < lock_padding.length; index++) {
 				const el = lock_padding[index];
-				el.style.paddingRight = '0px';
+				el.style.paddingRight = window.innerWidth - document.querySelector('.wrapper').offsetWidth + 'px';
 			}
-			body.style.paddingRight = '0px';
-			body.classList.remove("_lock");
-		}, delay);
+			body.style.paddingRight = window.innerWidth - document.querySelector('.wrapper').offsetWidth + 'px';
+			body.classList.add("_lock");
 
-		unlock = false;
-		setTimeout(function () {
-			unlock = true;
-		}, delay);
-	}
-}
-function body_lock_add(delay) {
-	let body = document.querySelector("body");
-	if (unlock) {
-		let lock_padding = document.querySelectorAll("._lp");
-		for (let index = 0; index < lock_padding.length; index++) {
-			const el = lock_padding[index];
-			el.style.paddingRight = window.innerWidth - document.querySelector('.wrapper').offsetWidth + 'px';
+			unlock = false;
+			setTimeout(function () {
+				unlock = true;
+			}, delay);
 		}
-		body.style.paddingRight = window.innerWidth - document.querySelector('.wrapper').offsetWidth + 'px';
-		body.classList.add("_lock");
+	}
 
-		unlock = false;
-		setTimeout(function () {
-			unlock = true;
-		}, delay);
+	let popup_close_icon = document.querySelectorAll('.popup__close,._popup-close');
+	if (popup_close_icon) {
+		for (let index = 0; index < popup_close_icon.length; index++) {
+			const el = popup_close_icon[index];
+			el.addEventListener('click', function () {
+				popup_close(el.closest('.popup'));
+			})
+		}
 	}
-}
-
-let popup_close_icon = document.querySelectorAll('.popup__close,._popup-close');
-if (popup_close_icon) {
-	for (let index = 0; index < popup_close_icon.length; index++) {
-		const el = popup_close_icon[index];
-		el.addEventListener('click', function () {
-			popup_close(el.closest('.popup'));
-		})
-	}
-}
-document.addEventListener('keydown', function (e) {
-	if (e.code === 'Escape') {
-		popup_close();
-	}
-});
+	document.addEventListener('keydown', function (e) {
+		if (e.code === 'Escape') {
+			popup_close();
+		}
+	});
 }
 //========================================================================================================================================================

@@ -178,15 +178,20 @@ h1, h2, h3, h4, h5, h6 {
   transform: rotate3d(0, 1, 0, 180deg);
 }
 .card__item._active .card__image {
-  z-index: 6;
-}
-.card__item._active .card__image-question {
+  z-index: 4;
   opacity: 0;
 }
+.card__item._active .card__image-question {
+  opacity: 1;
+}
 .card__image {
+  opacity: 1;
   width: 73px;
   position: absolute;
-  z-index: 4;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 6;
   transition: all 0.2s ease 0s;
 }
 @media (max-width: 1200px) {
@@ -200,7 +205,11 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 .card__image-question {
+  opacity: 0;
   position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   z-index: 5;
   width: 85px;
   transition: all 0.2s ease 0s;
@@ -266,7 +275,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: -10px;
   color: #fff;
   background-color: rgb(60, 146, 93);
-  transition: background-color 0.3s ease 0s;
+  transition: background-color 0.3s ease 0s, transform 0.3s ease 0s;
   padding: 15px 40px;
 }
 @media (max-width: 767.98px) {
@@ -279,8 +288,14 @@ h1, h2, h3, h4, h5, h6 {
     font-size: calc(20px + 2 * (100vw / 1580));
   }
 }
-.card__button:hover {
-  background-color: rgb(46, 112, 71);
+@media (min-width: 821px) {
+  .card__button:hover {
+    background-color: rgb(46, 112, 71);
+    transform: scale(1.02);
+  }
+  .card__button:active {
+    transform: scale(0.97);
+  }
 }
 @media (min-width: 1600px) {
   .card__button {

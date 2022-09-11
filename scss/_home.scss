@@ -62,7 +62,7 @@
 		@media (max-width: 480px) {
 			padding: 20px;
 		}
-		
+
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -70,84 +70,102 @@
 		background-color: rgba(61, 100, 129, 0.829);
 		transition: all .4s ease 0s;
 
-		&:hover{
+		&:hover {
 			background-color: rgba(60, 97, 128, 0.829);
 			transform: scale(1.03);
 		}
-		&._active{
-			transform: rotate3d(0,1,0,180deg);
-		  .card__image{
-			  z-index: 6;
-		  }
-		  .card__image-question{
-			  opacity: 0;
+
+		&._active {
+			transform: rotate3d(0, 1, 0, 180deg);
+
+			.card__image {
+				z-index: 4;
+				opacity: 0;
+			}
+
+			.card__image-question {
+				opacity: 1;
 			}
 		}
 	}
-	
+
 	&__image {
+		opacity: 1;
 		width: 73px;
 		position: absolute;
-		z-index: 4;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%,-50%);
+		z-index: 6;
 		transition: all .2s ease 0s;
-		
+
 		@media (max-width: 1200px) {
 			width: 53px;
 		}
-		
+
 		@media (max-width: 480px) {
 			width: 40px;
 		}
 	}
-	
+
 	&__image-question {
+		opacity: 0;
 		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%,-50%);
 		z-index: 5;
 		width: 85px;
 		transition: all .2s ease 0s;
-		
+
 		@media (max-width: 1200px) {
 			width: 60px;
 		}
-		
+
 		@media (max-width: 480px) {
 			width: 50px;
 		}
 	}
-	
-	&__controls{
+
+	&__controls {
 		display: flex;
 		justify-content: end;
 		align-items: center;
 		column-gap: 15px;
 	}
-	&__tries-counter{
+
+	&__tries-counter {
 		z-index: 5;
 		text-transform: uppercase;
 		font-weight: 600;
-		@media (min-width:1600px){
+
+		@media (min-width:1600px) {
 			position: relative;
 			//width: 30%;
 			right: 0px;
-			bottom: 0; 
+			bottom: 0;
 		}
+
 		@media (max-width: 1600px) {
 			position: fixed;
 			width: 50%;
 			right: 0px;
 			bottom: 27px;
 		}
+
 		@media (max-width: 768px) {
 			position: relative;
 			width: 30%;
 			right: 0px;
 			bottom: 0px;
 		}
-		@media (max-width: 480px){
+
+		@media (max-width: 480px) {
 			bottom: -11px;
-			
+
 		}
 	}
+
 	&__button {
 		font-weight: 600;
 		z-index: 15;
@@ -161,15 +179,22 @@
 
 		color: #fff;
 		background-color: rgb(60, 146, 93);
-		transition: background-color .3s ease 0s;
+		transition: background-color .3s ease 0s, transform .3s ease 0s;
 
-		&:hover {
-			background-color: rgb(46, 112, 71);
+		@media (min-width: 821px) {
+			&:hover {
+				background-color: rgb(46, 112, 71);
+				transform: scale(1.02);
+			}
+
+			&:active {
+				transform: scale(0.97);
+			}
 		}
 
 		padding: 15px 40px;
 
-		@media (min-width: 1600px) {
+		@media (min-width: 1600px) {	
 			position: relative;
 			width: 30%;
 			margin-bottom: 0px;
@@ -177,6 +202,7 @@
 			right: 0px;
 			bottom: 0;
 		}
+
 		@media (max-width: 768px) {
 			position: relative;
 			width: 70%;
@@ -188,6 +214,7 @@
 			margin-top: 15px;
 			padding: 25px 25px;
 		}
+
 		@media (max-height: 420px) {
 			opacity: 0.4;
 		}
