@@ -180,20 +180,20 @@ h1, h2, h3, h4, h5, h6 {
   background-color: rgba(43, 70, 92, 0.829);
 }
 .card__item._active .card__image {
-  z-index: 4;
-  opacity: 0;
+  z-index: 6;
+  opacity: 1;
 }
 .card__item._active .card__image-question {
-  opacity: 1;
+  opacity: 0;
 }
 .card__image {
-  opacity: 1;
+  opacity: 0;
   width: 73px;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  z-index: 6;
+  z-index: 4;
   transition: all 0.2s ease 0s;
 }
 @media (max-width: 1200px) {
@@ -207,7 +207,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 .card__image-question {
-  opacity: 0;
+  opacity: 1;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -359,13 +359,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .alert {
+  overflow: hidden;
   position: absolute;
   top: 0;
   left: 0;
+  transition: all 0.3s cubic-bezier(0.75, -1, 0.21, -1) 0s;
   z-index: 100;
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.76);
+}
+.alert._active {
+  top: 0;
+  left: 0;
 }
 .alert__game-start {
   opacity: 0;

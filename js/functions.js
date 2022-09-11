@@ -48,7 +48,6 @@ export function cardAction() {
 	}
 	//========================================================================================================================================================
 	// ---init active item
-	const cards = document.querySelectorAll('.card__item'); // global variable
 	const cardsParent = document.querySelector('.card__wrapper'); // global variable
 	let touchCounter = 0; // global variable
 	let complatedCounter = 0; // global variable
@@ -62,22 +61,55 @@ export function cardAction() {
 	// головна функція ініциалізації
 	function initCurrentCard(e) {
 		let currentItem = e.target.closest('.card__item');
-
-		// створення массиву з двох нажатих елементів
-		ItemsArray.splice(arrayCounter,0,currentItem)
 		// ліміт дотиків
 		if (touchCounter < 2) {
+			// створення массиву з двох нажатих елементів
+			ItemsArray.splice(arrayCounter, 0, currentItem);
 			touchCounter++;
 			// перевірка на однаковість
 			if (currentItem == ItemsArray[1]) {
 				touchCounter--;
-				console.log('same');
+				console.log('same card');
+			} else if (currentItem.childNodes[0].classList.contains('_active')) {
+				touchCounter--;
+				console.log('same card');
 			} else {
-				console.log('not same');
+				console.log('not same card');
 				currentItem.classList.add('_active');
+				//дозволяємо ініциалізацію на другий клік
+				if (touchCounter == 2) {
+					// перевірка кнопок на однаковий айді
+					if (currentItem.childNodes[0].getAttribute('id') == ItemsArray[1].childNodes[0].getAttribute('id')) {
+						currentItem.classList.add('checked');
+						ItemsArray[1].classList.add('checked');
+						console.log('same animal');
+						console.log(ItemsArray, " same animal");
+
+						touchCounter = 0;
+					} else {
+						console.log('not same animal');
+						ItemsArray.map(function (item) {
+							if (!item.classList.contains('checked')) {
+								setTimeout(() => {
+									item.classList.remove('_active');
+									touchCounter = 0;
+								}, 1500);
+							}
+						});
+						console.log(ItemsArray, " not same animal");
+					}
+				}
 			}
+			console.log(touchCounter);
 		}
-		//console.log(e.target.closest('.card__item'));
+
+	}
+
+	function removeActvieFromAllCard() {
+		const cards = document.querySelectorAll('.card__item');
+		cards.forEach(card => {
+			card.classList.remove('_active', 'checked')
+		});
 	}
 
 	//========================================================================================================================================================
@@ -128,6 +160,8 @@ export function cardAction() {
 		if (this == buttonReset) {
 			displayAlertForRestButton();
 		}
+
+		removeActvieFromAllCard();
 
 	}
 }
