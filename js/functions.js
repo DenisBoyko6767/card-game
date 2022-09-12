@@ -1,11 +1,6 @@
 //card action
 export function cardAction() {
 	//========================================================================================================================================================
-	// ---init result game
-
-
-
-	//========================================================================================================================================================
 	// ---display alert
 	const alerts = document.querySelectorAll('.alert');
 	const buttonsAlert = document.querySelectorAll('.alert__body span');
@@ -47,6 +42,33 @@ export function cardAction() {
 		}, 1000);
 	}
 	//========================================================================================================================================================
+	// ---init result game
+	const alertSuccess = document.querySelector('.alert__successful');
+	const alertGameOver = document.querySelector('.alert__game-over');
+	let tries = document.querySelector('.card__tries-counter span');
+	let triesCounter = parseInt(document.querySelector('.card__tries-counter span').innerHTML); // to dispaly 
+	let triesCookies = parseInt(document.querySelector('.card__tries-counter span').innerHTML); // to math func
+
+	function initResultGame() {
+		// якщо правильних відповідей білше за 6, то ... 
+		if (complatedCounter >= 6) {
+			alertSuccess.classList.add('_active');
+			alertLockScroll();
+			complatedCounter = 0;
+			loseCounter = 0;
+		}
+		// якщо менше за triesCookies(вказуємо в html), то ... 
+		if (loseCounter >= triesCookies) {
+			console.log(triesCounter);
+			alertGameOver.classList.add('_active');
+			alertLockScroll();
+			loseCounter = 0;
+			complatedCounter = 0;
+			triesCounter = triesCookies;
+			tries.innerHTML = triesCookies;
+		}
+	}
+	//========================================================================================================================================================
 	// ---init active item
 	const cardsParent = document.querySelector('.card__wrapper'); // global variable
 	let touchCounter = 0; // global variable
@@ -73,11 +95,13 @@ export function cardAction() {
 				// перевірка на однаковість
 				if (currentItem == ItemsArray[1]) {
 					touchCounter--;
-					ItemsArray.length = 1; // очищаэмо массив 
+					ItemsArray.length = 1; // очищаэмо массив (не повністю)
+
 					console.log('same card');
 				} else if ((currentItem != ItemsArray[1])) {
-					console.log('not same card');
 					currentItem.classList.add('_active');
+
+					console.log('not same card');
 					//дозволяємо ініциалізацію на другий клік
 					if (touchCounter == 2) {
 						// перевірка кнопок на однаковий айді
@@ -85,14 +109,15 @@ export function cardAction() {
 							currentItem.classList.add('checked');
 							ItemsArray[1].classList.add('checked');
 							complatedCounter++;
-							console.log('same animal');
-							console.log(ItemsArray, " same animal");
-							console.log(complatedCounter , " coplate");
-	
 							touchCounter = 0;
+
+							console.log('same animal');
+							console.log(ItemsArray);
+							console.log(complatedCounter , " coplate");
 						} else if (currentItem.childNodes[0].getAttribute('id') != ItemsArray[1].childNodes[0].getAttribute('id')) {
-							console.log('not same animal');
 							loseCounter++;
+							triesCounter--;
+							tries.innerHTML = triesCounter; 
 							ItemsArray.map(function (item) {
 								if (!item.classList.contains('checked')) {
 									setTimeout(() => {
@@ -101,8 +126,9 @@ export function cardAction() {
 									}, 1500);
 								}
 							});
-							console.log(ItemsArray, " not same animal");
-							console.log(loseCounter, " lose");
+							console.log('not same animal');
+							console.log(ItemsArray);
+							console.log(loseCounter, " lose");	
 						}
 						ItemsArray.length = 0; // очищаэмо массив 
 					}
@@ -110,6 +136,8 @@ export function cardAction() {
 				console.log(touchCounter, " touch");
 			}
 		}
+
+		initResultGame();
 	}
 
 	function removeActvieFromAllCard() {
@@ -128,7 +156,7 @@ export function cardAction() {
 	buttonReset.addEventListener('click', generateNewPosition);
 
 	// головна функфія генерації
-	function generateNewPosition(e) {
+	function generateNewPosition() {
 		// варіейбл 
 		let cardImage = Array.from(document.querySelectorAll('.card__image'));
 		let cardImageParent = Array.from(document.querySelectorAll('.card__item'));
@@ -167,12 +195,16 @@ export function cardAction() {
 		if (this == buttonReset) {
 			displayAlertForRestButton();
 		}
-
+		complatedCounter = 0;
+		loseCounter = 0;
+		triesCounter = triesCookies;
+		tries.innerHTML = triesCookies;
 		removeActvieFromAllCard();
 
 	}
 }
 //========================================================================================================================================================
+
 
 
 
