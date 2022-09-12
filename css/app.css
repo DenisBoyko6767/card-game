@@ -186,6 +186,9 @@ h1, h2, h3, h4, h5, h6 {
 .card__item._active .card__image-question {
   opacity: 0;
 }
+.card__item.checked {
+  pointer-events: none !important;
+}
 .card__image {
   opacity: 0;
   width: 73px;

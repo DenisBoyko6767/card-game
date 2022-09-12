@@ -89,6 +89,9 @@
 				opacity: 0;
 			}
 		}
+		&.checked{
+			pointer-events: none !important;
+		}
 	}
 
 	&__image {
