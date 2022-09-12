@@ -70,6 +70,7 @@
 		cursor: pointer;
 		background-color: rgba(61, 100, 129, 0.829);
 		transition: all .4s ease 0s;
+
 		&:hover {
 			background-color: rgba(60, 97, 128, 0.829);
 			transform: scale(1.03);
@@ -88,7 +89,8 @@
 				opacity: 0;
 			}
 		}
-		&.checked{
+
+		&.checked {
 			pointer-events: none !important;
 		}
 	}
@@ -136,6 +138,10 @@
 		justify-content: end;
 		align-items: center;
 		column-gap: 15px;
+		font-size: 28px;
+		@media (max-width: 510px){
+			font-size: 20px;	  
+		}
 	}
 
 	&__tries-counter {
@@ -255,6 +261,7 @@
 	border-radius: 12px;
 	border: 3px solid rgb(71, 167, 42);
 }
+
 //========================================================================================================================================================
 .alert {
 	overflow: hidden;
@@ -266,10 +273,12 @@
 	width: 100vw;
 	height: 100vh;
 	background-color: rgba(0, 0, 0, 0.76);
+
 	&._active {
 		top: 0;
 		left: 0;
 	}
+
 	&__game-start {
 		&._active {
 			opacity: 1;

@@ -56,6 +56,7 @@ export function cardAction() {
 			alertLockScroll();
 			complatedCounter = 0;
 			loseCounter = 0;
+			tries.style.color = 'white';
 		}
 		// якщо менше за triesCookies(вказуємо в html), то ... 
 		if (loseCounter >= triesCookies) {
@@ -66,6 +67,10 @@ export function cardAction() {
 			complatedCounter = 0;
 			triesCounter = triesCookies;
 			tries.innerHTML = triesCookies;
+			tries.style.color = 'white';
+		}
+		if (triesCounter <= 3) {
+			tries.style.color = 'red'
 		}
 	}
 	//========================================================================================================================================================
@@ -113,11 +118,11 @@ export function cardAction() {
 
 							console.log('same animal');
 							console.log(ItemsArray);
-							console.log(complatedCounter , " coplate");
+							console.log(complatedCounter, " coplate");
 						} else if (currentItem.childNodes[0].getAttribute('id') != ItemsArray[1].childNodes[0].getAttribute('id')) {
 							loseCounter++;
 							triesCounter--;
-							tries.innerHTML = triesCounter; 
+							tries.innerHTML = triesCounter;
 							ItemsArray.map(function (item) {
 								if (!item.classList.contains('checked')) {
 									setTimeout(() => {
@@ -128,7 +133,7 @@ export function cardAction() {
 							});
 							console.log('not same animal');
 							console.log(ItemsArray);
-							console.log(loseCounter, " lose");	
+							console.log(loseCounter, " lose");
 						}
 						ItemsArray.length = 0; // очищаэмо массив 
 					}
@@ -199,6 +204,7 @@ export function cardAction() {
 		loseCounter = 0;
 		triesCounter = triesCookies;
 		tries.innerHTML = triesCookies;
+		tries.style.color = 'white';
 		removeActvieFromAllCard();
 
 	}
