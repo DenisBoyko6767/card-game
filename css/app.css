@@ -163,7 +163,7 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background-color: rgba(61, 100, 129, 0.829);
+  background-color: rgba(61, 100, 129, 0.397);
   transition: all 0.4s ease 0s;
 }
 @media (max-width: 480px) {
@@ -172,7 +172,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 .card__item:hover {
-  background-color: rgba(60, 97, 128, 0.829);
+  background-color: rgba(60, 97, 128, 0.411);
   transform: scale(1.03);
 }
 .card__item._active {
